@@ -4,7 +4,7 @@ public class DniExcepcion {
 
 	public static void main(String[] args) {
 		
-		String dniPrueba = "17764969Z";
+		String dniPrueba = "17764269Z";
 		
 		System.out.println("El dni " + dniPrueba + " es " + (esValidoDNI(dniPrueba) ? "válido." : "erróneo."));
 		
@@ -15,11 +15,11 @@ public class DniExcepcion {
 		int resto = 23;
 		int longitudDNI = 9;
 		
-		
 		boolean esValido = false;
 		String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
 		
-		String cifras = "";
+		String cifras = dni.substring(0, longitudDNI - 1);
+		int cifrasInt = Integer.parseInt(cifras);
 		
 		if (dni.length() != longitudDNI) {
 			
@@ -27,15 +27,9 @@ public class DniExcepcion {
 			
 		}
 		
-		for (int i = 0; i < dni.length() - 1; i++) {
-			
-			cifras += dni.charAt(i);
-			
-		}
+		char letraDni = dni.charAt(longitudDNI - 1);
 		
-		int cifrasInt = Integer.parseInt(cifras);
-		
-		if (letras.indexOf(cifrasInt % resto) == dni.indexOf(dni.length())) {
+		if (letras.charAt((cifrasInt % resto)) == letraDni) {
 			
 			esValido = true;
 			
