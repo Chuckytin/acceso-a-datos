@@ -4,7 +4,17 @@ public class DniExcepcion {
 
 	public static void main(String[] args) {
 		
-		String dniPrueba = "17764269Z";
+		String dniPrueba = "17764869Z";
+		
+		try {
+			
+			esValidoDNI(dniPrueba);
+			
+		} catch (Exception e) {
+			
+			//System.err.println(e.getMessage());
+			
+		}
 		
 		System.out.println("El dni " + dniPrueba + " es " + (esValidoDNI(dniPrueba) ? "válido." : "erróneo."));
 		
