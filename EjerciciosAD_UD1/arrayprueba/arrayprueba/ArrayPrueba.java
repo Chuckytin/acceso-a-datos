@@ -14,22 +14,14 @@ public class ArrayPrueba {
 
 		int [][] arrayBidimensional = new int [2][3];
 
-		try {
-			
-			crearArray(arrayBidimensional);
-			
-			mostrarArray(arrayBidimensional);
-			
-		} catch (Exception e) {
-			
-			System.err.println(e.getMessage());
-			
-		}
+		crearArray(arrayBidimensional);
+
+		mostrarArray(arrayBidimensional);
 
 	}
 
 	private static int[][] crearArray (int [][] arrayBidimensional) {
-		
+
 		for (int i = 0; i < arrayBidimensional.length; i++) {
 
 			for (int j = 0; j < arrayBidimensional[i].length; j++) {
@@ -39,25 +31,41 @@ public class ArrayPrueba {
 			}
 
 		}
-		
+
 		return arrayBidimensional;
-		
+
 	}
-	
+
 	private static void mostrarArray(int [][] arrayBidimensional) {
-		
+
 		for (int i = 0; i < 3; i++) {
-			
+
 			for (int j = 0; j < 3; j++) {
-				
-				System.out.print(arrayBidimensional[i][j]);
-				
+
+				try {
+
+					System.out.print("[" + (arrayBidimensional[i][j] * 5) / j + "]");
+
+				} catch (IndexOutOfBoundsException e) {
+
+					System.err.println("Error de dimensión del array " + e.getMessage());
+
+				} catch (ArithmeticException e) {
+
+					System.err.println("Error al dividir por " + j + " " + e.getMessage());
+
+				} catch (Exception e) {
+
+					System.err.println("Errir inesperado " + e.getMessage());
+
+				}
+
 			}
-			
+
 			System.out.println();
-			
+
 		}
-		
+
 	}
-	
+
 }
