@@ -31,7 +31,7 @@ public class ExcepcionesConThrows {
 		FileWriter fw = new FileWriter(f);
 		
 		for (int i = 0; i < numRep; i++) {
-			fw.write(caracter);
+			fw.write(caracter); //repite un carácter en el fichero 'numRep' indicado
 		}
 		
 		fw.close();
