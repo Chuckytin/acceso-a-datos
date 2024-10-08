@@ -1,4 +1,4 @@
-package excepcionesconthrows;
+package excepcionesthrows;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -68,7 +68,7 @@ public class EjercicioConFinally {
 				System.out.println("Fichero temporal " + fm2.getName() + " borrado.");
 			}
 
-			System.out.println("Liberando recursos: FIN. ");
+			System.out.println("Liberando recursos: FIN.");
 
 		}
 
