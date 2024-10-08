@@ -1,4 +1,4 @@
-package excepcionescontrhows;
+package excepcionesconthrows;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,10 +17,10 @@ public class EjercicioConFinally {
 		
 		try {
 			
-			Random aleat = new Random();
-			int falloTras = aleat.nextInt(3) + 1;
+			Random random = new Random();
+			int falloTras = random.nextInt(3) + 1;
 			
-			if (falloTras<=1) {
+			if (falloTras <= 1) {
 				System.out.println("SE SALE AL LLEGAR A " + falloTras);
 				return;
 			}
@@ -44,7 +44,6 @@ public class EjercicioConFinally {
 			
 			System.out.println("Ejecutado hasta el final.");
 			
-			
 		} catch (FileNotFoundException e) {
 			
 			System.err.println("Fichero no encontrado: " + e.getMessage());
@@ -55,9 +54,9 @@ public class EjercicioConFinally {
 			
 		} finally {
 			
-			System.out.println("Liberando recursos: INICIO.");
 			if (ifs1 != null) ifs1.close();
 			if (ifs2 != null) ifs2.close();
+			System.out.println("Liberando recursos: INICIO.");
 			
 		}
 		

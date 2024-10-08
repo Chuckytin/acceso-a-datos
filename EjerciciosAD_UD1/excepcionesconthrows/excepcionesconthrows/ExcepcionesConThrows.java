@@ -1,4 +1,4 @@
-package excepcionescontrhows;
+package excepcionesconthrows;
 
 import java.io.File;
 import java.io.FileWriter;
