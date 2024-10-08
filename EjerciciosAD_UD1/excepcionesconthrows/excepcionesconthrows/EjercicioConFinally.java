@@ -68,7 +68,7 @@ public class EjercicioConFinally {
 				System.out.println("Fichero temporal " + fm2.getName() + " borrado.");
 			}
 
-			System.out.println("Liberando recursos: FIN.");
+			System.out.println("Liberando recursos: FIN. ");
 
 		}
 
