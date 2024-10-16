@@ -1,0 +1,3 @@
+ Este es un fichero de texto. 
+ quiza no esta del todo bien.
+ Pero se puede arreglar.
