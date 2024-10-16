@@ -8,7 +8,7 @@ import java.io.IOException;
 /*
  * Crea un programa que abra un fichero y busque un texto para cada aparición, que muestre la línea y la columna (posición).
  */
-public class LecturaEntrada1 {
+public class BuscaTexto {
 
 	public static void main(String[] args) {
 

@@ -10,7 +10,7 @@ import java.io.OutputStreamWriter;
  * Crea un programa que abra un fichero UTF-8 y genere un ISO-8859-1 y otro UTF-16. (OutputStreamWriter nos permite recodificar.) 
  * El UTF-8 lo tendrás que crear con un editor, asegurate de poner acentos, ñ y ese tipo de cosas. 
  */
-public class LecturaEntrada2 {
+public class Reencoder {
 
 	public static void main(String[] args) {
 		

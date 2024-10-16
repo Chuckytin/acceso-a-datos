@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.PrintStream;
 
 /*
 Lee el código, entiéndelo y coméntalo.
@@ -11,13 +12,14 @@ Completa el catch.
 ¿Sirve para ficheros de texto? Prueba
 Modificarlo para poder elegir el PrintStream de salida.
  */
-public class LecturaEntrada3 {
+public class VocaldoBinario {
 
 	static int TAM_FILA = 32;
 	static int MAX_BYTES = 2048;
 	InputStream is = null;
+	PrintStream out = null;
 
-	public LecturaEntrada3 (InputStream is) {
+	public VocaldoBinario (InputStream is) {
 		this.is = is;
 	}
 
@@ -54,7 +56,7 @@ public class LecturaEntrada3 {
 		
 		try(FileInputStream fis = new FileInputStream(nombreFichero)) {
 			
-			LecturaEntrada3 lectura = new LecturaEntrada3(fis);
+			VocaldoBinario lectura = new VocaldoBinario(fis);
 			lectura.volcar();
 			
 		} catch (FileNotFoundException e){
