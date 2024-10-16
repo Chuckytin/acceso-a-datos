@@ -8,7 +8,7 @@ import java.io.IOException;
 /*
  * Uso de readLine() de BufferedReader()
  */
-public class App {
+public class BufferedReaderReadLine {
 
 	public static void main(String[] args) {
 		
