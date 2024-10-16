@@ -23,18 +23,18 @@ public class EscribeEnFlujoSalida{
 
 		try {
 			
-			BufferedWriter bfw = new BufferedWriter(new FileWriter(f)); //Crea archivo
+			BufferedWriter bfw = new BufferedWriter(new FileWriter(f)); 
 			
 			bfw.write(" Este es un fichero de texto. ");
 			bfw.newLine();
 			bfw.write(" quiza no esta del todo bien.");
 			bfw.newLine();
-			bfw.close(); //cierra el fichero
+			bfw.close(); 
 			
-			bfw = new BufferedWriter(new FileWriter(f, true)); //añade un append al fichero ya creado
+			bfw = new BufferedWriter(new FileWriter(f, true)); 
 			bfw.write(" Pero se puede arreglar.");
 			bfw.newLine();
-			bfw.close(); //cierra el fichero
+			bfw.close(); 
 			
 		} catch (Exception e) {
 			
