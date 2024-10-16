@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.PrintStream;
 
 /*
 Lee el código, entiéndelo y coméntalo.
@@ -17,7 +16,6 @@ public class VocaldoBinario {
 	static int TAM_FILA = 32;
 	static int MAX_BYTES = 2048;
 	InputStream is = null;
-	PrintStream out = null;
 
 	public VocaldoBinario (InputStream is) {
 		this.is = is;
@@ -45,29 +43,29 @@ public class VocaldoBinario {
 		
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		
-		if(args.length < 1){
+		if (args.length < 1) {
 			System.out.println("No se ha indicado ningun fichero");
 			return;
 		}
 		
 		String nombreFichero = args[0];
 		
-		try(FileInputStream fis = new FileInputStream(nombreFichero)) {
+		try (FileInputStream fis = new FileInputStream(nombreFichero)) {
 			
 			VocaldoBinario lectura = new VocaldoBinario(fis);
 			lectura.volcar();
 			
-		} catch (FileNotFoundException e){
+		} catch (FileNotFoundException e) {
 			
 			System.err.println("ERROR: No existe fichero " + nombreFichero);
 			
-		} catch (IOException e){
+		} catch (IOException e) {
 			
 			System.err.println("ERROR de E/S: " + e.getMessage());
 			
-		} catch(Exception e){
+		} catch (Exception e) {
 			
 			e.printStackTrace();
 			
