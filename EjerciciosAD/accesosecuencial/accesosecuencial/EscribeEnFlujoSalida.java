@@ -11,12 +11,12 @@ Si el fichero ya existe no hace nada
  */
 public class EscribeEnFlujoSalida{
 	
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		
 		String nombreFichero="f_texto.txt";
 		File f = new File(nombreFichero);
 		
-		if(f.exists()){
+		if (f.exists()) {
 			System.out.println("Fichero " + nombreFichero + " ya existe. No se hace nada.");
 			return;
 		}
@@ -27,13 +27,11 @@ public class EscribeEnFlujoSalida{
 			
 			bfw.write(" Este es un fichero de texto. ");
 			bfw.newLine();
-			bfw.write("Quizás no está del todo bien.");
-			bfw.newLine();
+			bfw.write(" Quizás no está del todo bien. ");
 			bfw.close(); 
 			
-			bfw = new BufferedWriter(new FileWriter(f, true)); 
-			bfw.write("Pero se puede arreglar.");
-			bfw.newLine();
+			bfw = new BufferedWriter(new FileWriter(f, true)); //true (no sobreescribe) false (sobreescribe)
+			bfw.write(" Pero se puede arreglar.");
 			bfw.close(); 
 			
 		} catch (Exception e) {
