@@ -17,7 +17,7 @@ public class EscribeEnFlujoSalida{
 		File f = new File(nombreFichero);
 		
 		if(f.exists()){
-			System.out.println("Fichero " + nombreFichero + " ya existe. No se hace nada");
+			System.out.println("Fichero " + nombreFichero + " ya existe. No se hace nada.");
 			return;
 		}
 
@@ -27,12 +27,12 @@ public class EscribeEnFlujoSalida{
 			
 			bfw.write(" Este es un fichero de texto. ");
 			bfw.newLine();
-			bfw.write(" quiza no esta del todo bien.");
+			bfw.write("Quizás no está del todo bien.");
 			bfw.newLine();
 			bfw.close(); 
 			
 			bfw = new BufferedWriter(new FileWriter(f, true)); 
-			bfw.write(" Pero se puede arreglar.");
+			bfw.write("Pero se puede arreglar.");
 			bfw.newLine();
 			bfw.close(); 
 			
