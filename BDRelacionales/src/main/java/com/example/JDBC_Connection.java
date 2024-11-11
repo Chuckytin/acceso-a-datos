@@ -3,19 +3,20 @@ package com.example;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class JDBC_Connection {
 
+    public static String baseDeDatos = "sql7743105";
+    public static String host = "sql7.freemysqlhosting.net";
+    public static String port = "3306";
+    public static String parAdic = "";
+    public static String urlConecciont = "jdbc:mysql://" + host + ":" + port + "/" + baseDeDatos + parAdic;
+    public static String user = "sql7743105";
+    public static String pwd = "jvITGN6mSA";
+
     //main de base de datos en la nube temporal
     public static void main(String[] args) {
-
-        String baseDeDatos = "sql7743105";
-        String host = "sql7.freemysqlhosting.net";
-        String port = "3306";
-        String parAdic = "";
-        String urlConecciont = "jdbc:mysql://" + host + ":" + port + "/" + baseDeDatos + parAdic;
-        String user = "sql7743105";
-        String pwd = "jvITGN6mSA";
 
         try (Connection connection = DriverManager.getConnection(urlConecciont, user, pwd)) {
 
@@ -33,5 +34,4 @@ public class JDBC_Connection {
         System.err.println("SQL estado: " + e.getSQLState());
         System.err.println("SQL código específico: " + e.getErrorCode());
     }
-
 }
