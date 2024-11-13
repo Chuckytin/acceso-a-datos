@@ -21,7 +21,7 @@ public class JDBC_Create_Table {
             String sql = "CREATE TABLE Clientes (" +
                     "dni varchar(9) PRIMARY KEY NOT NULL," +
                     "nombreCompleto varchar(50) NOT NULL," +
-                    "codigoPostal varchar(5)" +
+                    "codigoPostal char(5)" +
                     ")";
 
             boolean resultado = statement.execute(sql);

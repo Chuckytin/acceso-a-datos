@@ -7,13 +7,13 @@ import java.sql.Statement;
 
 public class JDBC_Connection {
 
-    public static String baseDeDatos = "sql7743105";
+    public static String baseDeDatos = "sql7744626";
     public static String host = "sql7.freemysqlhosting.net";
     public static String port = "3306";
     public static String parAdic = "";
     public static String urlConecciont = "jdbc:mysql://" + host + ":" + port + "/" + baseDeDatos + parAdic;
-    public static String user = "sql7743105";
-    public static String pwd = "jvITGN6mSA";
+    public static String user = "sql7744626";
+    public static String pwd = "axcWNzMuCb";
 
     //main de base de datos en la nube temporal
     public static void main(String[] args) {
