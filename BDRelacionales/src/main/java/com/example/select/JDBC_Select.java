@@ -1,4 +1,6 @@
-package com.example;
+package com.example.select;
+
+import com.example.connection.JDBC_Connection;
 
 import java.sql.*;
 

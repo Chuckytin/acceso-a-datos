@@ -1,4 +1,6 @@
-package com.example;
+package com.example.update;
+
+import com.example.connection.JDBC_Connection;
 
 import java.sql.*;
 
@@ -12,7 +14,7 @@ public class JDBC_Update {
 
         try (Connection connection = DriverManager.getConnection(JDBC_Connection.urlConecciont,
                 JDBC_Connection.user, JDBC_Connection.pwd);
-             Statement statement = connection.createStatement()) {
+                Statement statement = connection.createStatement()) {
 
             String consulta1 = "UPDATE Clientes SET dni = '78901234X', nombreCompleto = 'NADALES', codigoPostal = '44126' WHERE codigoPostal = '50001'";
             String consulta2 = "UPDATE Clientes SET dni = '89012345E', nombreCompleto = 'ROJAS', codigoPostal = null WHERE codigoPostal = '50002'";

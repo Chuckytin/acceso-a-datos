@@ -1,4 +1,6 @@
-package com.example;
+package com.example.insert;
+
+import com.example.connection.JDBC_Connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

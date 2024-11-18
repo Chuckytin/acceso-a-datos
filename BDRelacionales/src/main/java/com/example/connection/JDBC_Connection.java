@@ -1,9 +1,8 @@
-package com.example;
+package com.example.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class JDBC_Connection {
 

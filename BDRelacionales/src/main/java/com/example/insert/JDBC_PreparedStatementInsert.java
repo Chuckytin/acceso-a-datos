@@ -1,4 +1,6 @@
-package com.example;
+package com.example.insert;
+
+import com.example.connection.JDBC_Connection;
 
 import java.sql.*;
 
@@ -23,16 +25,16 @@ public class JDBC_PreparedStatementInsert {
 
             //DatabaseMetadata verifica si la tabla existe
             DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet tables = metaData.getTables(null, null, tableName, new String[]{"TABLE"});
+            ResultSet resultSetTabla = metaData.getTables(null, null, tableName, new String[]{"TABLE"});
 
-            boolean tableExists = tables.next();
+            boolean tableExists = resultSetTabla.next();
 
             if (!tableExists) {
                 Statement statement = connection.createStatement();
                 statement.execute(sqlCreateTable);
-                System.out.println("Tabla creada: " + tableName);
+                System.out.println("La tabla '" + tableName + "' ha sido creada.");
             } else {
-                System.out.println("Tabla ya existe: " + tableName);
+                System.out.println("Tabla '" + tableName + "' ya existe.");
             }
 
             //Verifica si hay datos en la tabla gracias a la consulta COUNT
