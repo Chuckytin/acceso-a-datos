@@ -28,19 +28,6 @@ public class Alumno {
                 '}';
     }
 
-    // Método para guardar un alumno en la tabla ALUMNOS
-    public void guardarAlumno(Connection connection) {
-        String sqlInsert = "INSERT INTO ALUMNOS2 (nombre, apellido1) VALUES (?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert)) {
-            preparedStatement.setString(1, this.nombre);
-            preparedStatement.setString(2, this.apellido1);
-            preparedStatement.executeUpdate();
-            System.out.println("Alumno guardado en ALUMNOS2: " + this.toString());
-        } catch (SQLException e) {
-            System.err.println("Error al guardar el alumno en ALUMNOS2: " + e.getMessage());
-        }
-    }
-
     //Método para guardar un alumno en la tabla ALUMNOS2
     public void guardarAlumno2(Connection connection) {
         String sqlInsert = "INSERT INTO ALUMNOS2 (nombre, apellido1) VALUES (?, ?)";
