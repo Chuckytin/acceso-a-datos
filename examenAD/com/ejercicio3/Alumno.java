@@ -30,12 +30,17 @@ public class Alumno {
 
     //Método para guardar un alumno en la tabla ALUMNOS2
     public void guardarAlumno2(Connection connection) {
+        
         String sqlInsert = "INSERT INTO ALUMNOS2 (nombre, apellido1) VALUES (?, ?)";
+        
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert)) {
+            
             preparedStatement.setString(1, this.nombre);
             preparedStatement.setString(2, this.apellido1);
             preparedStatement.executeUpdate();
+            
             System.out.println("Alumno guardado en ALUMNOS2: " + this.toString());
+            
         } catch (SQLException e) {
             System.err.println("Error al guardar el alumno en ALUMNOS2: " + e.getMessage());
         }
@@ -43,9 +48,11 @@ public class Alumno {
 
     //Método para cargar un alumno desde un ResultSet
     public static Alumno cargar(ResultSet resultSet) throws SQLException {
+        
         int id = resultSet.getInt("id");
         String nombre = resultSet.getString("nombre");
         String apellido1 = resultSet.getString("apellido1");
+        
         return new Alumno(id, nombre, apellido1);
     }
 
@@ -117,9 +124,12 @@ class Main {
                     apellido1 VARCHAR(100) NOT NULL
                 );
                 """;
+        
         try (Statement statement = connection.createStatement()) {
+            
             statement.execute(sqlCreateTable);
             System.out.println("Tabla ALUMNOS2 creada o ya existía.");
+            
         } catch (SQLException e) {
             System.err.println("Error al crear la tabla ALUMNOS2: " + e.getMessage());
         }
@@ -148,9 +158,11 @@ class Main {
         boolean existe = false;
 
         try (ResultSet resultSet = databaseMetaData.getTables(null, null, nombreTabla, null)) {
+            
             if (resultSet.next()) {
                 existe = true;
             }
+            
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         }
@@ -160,8 +172,11 @@ class Main {
 
     //Método para mostrar los alumnos desde una tabla especificada
     private static void mostrarAlumnos(Connection connection, String tabla) throws SQLException {
+        
         String sqlSelect = "SELECT * FROM " + tabla;
+        
         try (Statement statement = connection.createStatement();
+             
              ResultSet resultSet = statement.executeQuery(sqlSelect)) {
 
             while (resultSet.next()) {
