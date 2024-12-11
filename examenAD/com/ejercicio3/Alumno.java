@@ -41,7 +41,7 @@ public class Alumno {
         }
     }
 
-    // Método para guardar un alumno en la tabla ALUMNOS2
+    //Método para guardar un alumno en la tabla ALUMNOS2
     public void guardarAlumno2(Connection connection) {
         String sqlInsert = "INSERT INTO ALUMNOS2 (nombre, apellido1) VALUES (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert)) {
@@ -54,7 +54,7 @@ public class Alumno {
         }
     }
 
-    // Método para cargar un alumno desde un ResultSet
+    //Método para cargar un alumno desde un ResultSet
     public static Alumno cargar(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String nombre = resultSet.getString("nombre");
@@ -94,7 +94,7 @@ class Main {
     public static void main(String[] args) {
 
         try (Connection connection = DriverManager.getConnection(Datos.urlConnection, Datos.user, Datos.pwd)) {
-            // Crear la tabla ALUMNOS2 si no existen
+            //Crear la tabla ALUMNOS2 si no existen
             crearTablaAlumnos2(connection);
 
             // Crear los 5 alumnos
@@ -121,7 +121,7 @@ class Main {
         }
     }
 
-    // Método para crear la tabla ALUMNOS2
+    //Método para crear la tabla ALUMNOS2
     private static void crearTablaAlumnos2(Connection connection) {
         String sqlCreateTable = """
                 CREATE TABLE IF NOT EXISTS ALUMNOS2 (
@@ -171,7 +171,7 @@ class Main {
 
     }
 
-    // Método para mostrar los alumnos desde una tabla especificada
+    //Método para mostrar los alumnos desde una tabla especificada
     private static void mostrarAlumnos(Connection connection, String tabla) throws SQLException {
         String sqlSelect = "SELECT * FROM " + tabla;
         try (Statement statement = connection.createStatement();
@@ -184,15 +184,15 @@ class Main {
         }
     }
 
-    // Clase estática con los datos de conexión
+    //Clase estática con los datos de conexión
     static class Datos {
-        public static String baseDeDatos = "sql7744626";
-        public static String host = "sql7.freemysqlhosting.net";
+        public static String baseDeDatos = "";
+        public static String host = "";
         public static String port = "3306";
         public static String parametrosAdicionales = "";
         public static String urlConnection = "jdbc:mysql://" + host + ":" + port + "/" + baseDeDatos + parametrosAdicionales;
-        public static String user = "sql7744626";
-        public static String pwd = "axcWNzMuCb";
+        public static String user = "";
+        public static String pwd = "";
     }
 
 }
