@@ -7,12 +7,12 @@ import java.sql.*;
 public class ConexionBD {
 
     //datos para la conexión
-    public static String baseDeDatos = "sql7743091";
-    public static String host = "sql7.freemysqlhosting.net";
+    public static String baseDeDatos = "";
+    public static String host = "";
     public static String port = "3306";
     public static String urlConnection = "jdbc:mysql://" + host + ":" + port + "/" + baseDeDatos;
-    public static String user="sql7743091";
-    public static String pwd="7bpBb7gnfE";
+    public static String user="";
+    public static String pwd="";
 
     //para comprobar el nombre de las BBDD
     //public static String sqlSHOW = "SHOW TABLES";

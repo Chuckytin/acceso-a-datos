@@ -28,6 +28,7 @@ public class Alumno {
                 '}';
     }
 
+<<<<<<< HEAD
     // Método para guardar un alumno en la tabla ALUMNOS2
     public void guardarAlumno2(Connection connection) {
 
@@ -41,18 +42,41 @@ public class Alumno {
 
             System.out.println("Alumno guardado en ALUMNOS2: " + this.toString());
 
+=======
+    //Método para guardar un alumno en la tabla ALUMNOS2
+    public void guardarAlumno2(Connection connection) {
+        
+        String sqlInsert = "INSERT INTO ALUMNOS2 (nombre, apellido1) VALUES (?, ?)";
+        
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert)) {
+            
+            preparedStatement.setString(1, this.nombre);
+            preparedStatement.setString(2, this.apellido1);
+            preparedStatement.executeUpdate();
+            
+            System.out.println("Alumno guardado en ALUMNOS2: " + this.toString());
+            
+>>>>>>> b92c9b93618b5cdbfcbe4fda800248a072cb8b00
         } catch (SQLException e) {
             System.err.println("Error al guardar el alumno en ALUMNOS2: " + e.getMessage());
         }
     }
 
-    // Método para cargar un alumno desde un ResultSet
+    //Método para cargar un alumno desde un ResultSet
     public static Alumno cargar(ResultSet resultSet) throws SQLException {
+<<<<<<< HEAD
 
         int id = resultSet.getInt("id");
         String nombre = resultSet.getString("nombre");
         String apellido1 = resultSet.getString("apellido1");
 
+=======
+        
+        int id = resultSet.getInt("id");
+        String nombre = resultSet.getString("nombre");
+        String apellido1 = resultSet.getString("apellido1");
+        
+>>>>>>> b92c9b93618b5cdbfcbe4fda800248a072cb8b00
         return new Alumno(id, nombre, apellido1);
     }
 
@@ -115,7 +139,7 @@ class Main {
         }
     }
 
-    // Método para crear la tabla ALUMNOS2
+    //Método para crear la tabla ALUMNOS2
     private static void crearTablaAlumnos2(Connection connection) {
         String sqlCreateTable = """
                 CREATE TABLE IF NOT EXISTS ALUMNOS2 (
@@ -124,9 +148,12 @@ class Main {
                     apellido1 VARCHAR(100) NOT NULL
                 );
                 """;
+        
         try (Statement statement = connection.createStatement()) {
+            
             statement.execute(sqlCreateTable);
             System.out.println("Tabla ALUMNOS2 creada o ya existía.");
+            
         } catch (SQLException e) {
             System.err.println("Error al crear la tabla ALUMNOS2: " + e.getMessage());
         }
@@ -155,9 +182,11 @@ class Main {
         boolean existe = false;
 
         try (ResultSet resultSet = databaseMetaData.getTables(null, null, nombreTabla, null)) {
+            
             if (resultSet.next()) {
                 existe = true;
             }
+            
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         }
@@ -165,11 +194,17 @@ class Main {
 
     }
 
-    // Método para mostrar los alumnos desde una tabla especificada
+    //Método para mostrar los alumnos desde una tabla especificada
     private static void mostrarAlumnos(Connection connection, String tabla) throws SQLException {
+        
         String sqlSelect = "SELECT * FROM " + tabla;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> b92c9b93618b5cdbfcbe4fda800248a072cb8b00
         try (Statement statement = connection.createStatement();
+             
              ResultSet resultSet = statement.executeQuery(sqlSelect)) {
 
             while (resultSet.next()) {
@@ -179,15 +214,15 @@ class Main {
         }
     }
 
-    // Clase estática con los datos de conexión
+    //Clase estática con los datos de conexión
     static class Datos {
-        public static String baseDeDatos = "sql7744626";
-        public static String host = "sql7.freemysqlhosting.net";
+        public static String baseDeDatos = "";
+        public static String host = "";
         public static String port = "3306";
         public static String parametrosAdicionales = "";
         public static String urlConnection = "jdbc:mysql://" + host + ":" + port + "/" + baseDeDatos + parametrosAdicionales;
-        public static String user = "sql7744626";
-        public static String pwd = "axcWNzMuCb";
+        public static String user = "";
+        public static String pwd = "";
     }
 
 }

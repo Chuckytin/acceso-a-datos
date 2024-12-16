@@ -3,13 +3,6 @@ package com.ejercicio2;
 import java.sql.*;
 import java.util.Scanner;
 
-//Opciones A y B hechas del ejercicio 2
-
-/*
-*   SUSTITUIR AL FINAL EL NOMBRE DE LA BD sql7744626 por LA BASE DE DATOS 'ALUMNOS'
-*   La página no me da permisos a crear otra base de datos
-*
-*/
 public class AlumnosBD {
 
     static Scanner entrada = new Scanner(System.in);
@@ -428,14 +421,14 @@ public class AlumnosBD {
         System.err.println("SQL código específico: " + e.getErrorCode());
     }
 
-    //clase static con los datos a sql7.freemysqlhosting.net
+    //clase static con los datos de la BD
     static class Datos {
-        public static String baseDeDatos = "sql7744626"; //base de datos ALUMNOS
-        public static String host = "sql7.freemysqlhosting.net";
+        public static String baseDeDatos = ""; //base de datos ALUMNOS
+        public static String host = "";
         public static String port = "3306";
         public static String parametrosAdicionales = "";
         public static String urlConnection = "jdbc:mysql://" + host + ":" + port + "/" + baseDeDatos + parametrosAdicionales;
-        public static String user = "sql7744626";
-        public static String pwd = "axcWNzMuCb";
+        public static String user = "";
+        public static String pwd = "";
     }
 }
