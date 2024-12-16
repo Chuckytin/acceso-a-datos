@@ -28,27 +28,19 @@ public class Alumno {
                 '}';
     }
 
-    // Método para guardar un alumno en la tabla ALUMNOS
-    public void guardarAlumno(Connection connection) {
-        String sqlInsert = "INSERT INTO ALUMNOS2 (nombre, apellido1) VALUES (?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert)) {
-            preparedStatement.setString(1, this.nombre);
-            preparedStatement.setString(2, this.apellido1);
-            preparedStatement.executeUpdate();
-            System.out.println("Alumno guardado en ALUMNOS2: " + this.toString());
-        } catch (SQLException e) {
-            System.err.println("Error al guardar el alumno en ALUMNOS2: " + e.getMessage());
-        }
-    }
-
     // Método para guardar un alumno en la tabla ALUMNOS2
     public void guardarAlumno2(Connection connection) {
+
         String sqlInsert = "INSERT INTO ALUMNOS2 (nombre, apellido1) VALUES (?, ?)";
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert)) {
+
             preparedStatement.setString(1, this.nombre);
             preparedStatement.setString(2, this.apellido1);
             preparedStatement.executeUpdate();
+
             System.out.println("Alumno guardado en ALUMNOS2: " + this.toString());
+
         } catch (SQLException e) {
             System.err.println("Error al guardar el alumno en ALUMNOS2: " + e.getMessage());
         }
@@ -56,9 +48,11 @@ public class Alumno {
 
     // Método para cargar un alumno desde un ResultSet
     public static Alumno cargar(ResultSet resultSet) throws SQLException {
+
         int id = resultSet.getInt("id");
         String nombre = resultSet.getString("nombre");
         String apellido1 = resultSet.getString("apellido1");
+
         return new Alumno(id, nombre, apellido1);
     }
 
@@ -94,10 +88,10 @@ class Main {
     public static void main(String[] args) {
 
         try (Connection connection = DriverManager.getConnection(Datos.urlConnection, Datos.user, Datos.pwd)) {
-            // Crear la tabla ALUMNOS2 si no existen
+            //Crear la tabla ALUMNOS2 si no existen
             crearTablaAlumnos2(connection);
 
-            // Crear los 5 alumnos
+            //Crear los 5 alumnos
             Alumno alumno1 = new Alumno(0, "Juan", "Pérez");
             Alumno alumno2 = new Alumno(0, "María", "Gómez");
             Alumno alumno3 = new Alumno(0, "Luis", "Martínez");
@@ -105,14 +99,14 @@ class Main {
             Alumno alumno5 = new Alumno(0, "Pedro", "López");
 
 
-            // Guardar los alumnos en la tabla ALUMNOS2
+            // guardar los alumnos en la tabla ALUMNOS2
             alumno1.guardarAlumno2(connection);
             alumno2.guardarAlumno2(connection);
             alumno3.guardarAlumno2(connection);
             alumno4.guardarAlumno2(connection);
             alumno5.guardarAlumno2(connection);
 
-            // Muestra los alumnos cargados desde la base de datos de la tabla ALUMNOS2
+            //Muestra los alumnos cargados desde la base de datos de la tabla ALUMNOS2
             System.out.println("\nAlumnos cargados de la tabla ALUMNOS2:");
             mostrarAlumnos(connection, "ALUMNOS2");
 
@@ -174,6 +168,7 @@ class Main {
     // Método para mostrar los alumnos desde una tabla especificada
     private static void mostrarAlumnos(Connection connection, String tabla) throws SQLException {
         String sqlSelect = "SELECT * FROM " + tabla;
+
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sqlSelect)) {
 

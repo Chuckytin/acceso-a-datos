@@ -335,7 +335,9 @@ public class AlumnosBD {
     // Método para crear un nuevo alumno
     private static void crearAlumno() {
         String sqlInsert = "INSERT INTO ALUMNOS (nombre, apellidos) VALUES (?, ?)";
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert)) {
+
             System.out.println("Introduce el nombre del alumno:");
             String nombre = entrada.nextLine();
             System.out.println("Introduce los apellidos del alumno:");
@@ -344,7 +346,9 @@ public class AlumnosBD {
             preparedStatement.setString(1, nombre);
             preparedStatement.setString(2, apellidos);
             preparedStatement.executeUpdate();
+
             System.out.println("Alumno creado con éxito.");
+
         } catch (SQLException e) {
             muestraErrorSQL(e);
         }
@@ -352,13 +356,18 @@ public class AlumnosBD {
 
     // Método para modificar un alumno
     private static void modificarAlumno() {
+
         String sqlUpdate = "UPDATE ALUMNOS SET nombre = ?, apellidos = ? WHERE id = ?";
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
+
             System.out.println("Introduce el ID del alumno que deseas modificar:");
             int id = entrada.nextInt();
             entrada.nextLine(); // Limpiar buffer
+
             System.out.println("Introduce el nuevo nombre:");
             String nuevoNombre = entrada.nextLine();
+
             System.out.println("Introduce los nuevos apellidos:");
             String nuevosApellidos = entrada.nextLine();
 
@@ -372,6 +381,7 @@ public class AlumnosBD {
             } else {
                 System.out.println("No se encontró un alumno con ese ID.");
             }
+
         } catch (SQLException e) {
             muestraErrorSQL(e);
         }
