@@ -28,21 +28,6 @@ public class Alumno {
                 '}';
     }
 
-<<<<<<< HEAD
-    // Método para guardar un alumno en la tabla ALUMNOS2
-    public void guardarAlumno2(Connection connection) {
-
-        String sqlInsert = "INSERT INTO ALUMNOS2 (nombre, apellido1) VALUES (?, ?)";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert)) {
-
-            preparedStatement.setString(1, this.nombre);
-            preparedStatement.setString(2, this.apellido1);
-            preparedStatement.executeUpdate();
-
-            System.out.println("Alumno guardado en ALUMNOS2: " + this.toString());
-
-=======
     //Método para guardar un alumno en la tabla ALUMNOS2
     public void guardarAlumno2(Connection connection) {
         
@@ -56,7 +41,6 @@ public class Alumno {
             
             System.out.println("Alumno guardado en ALUMNOS2: " + this.toString());
             
->>>>>>> b92c9b93618b5cdbfcbe4fda800248a072cb8b00
         } catch (SQLException e) {
             System.err.println("Error al guardar el alumno en ALUMNOS2: " + e.getMessage());
         }
@@ -64,19 +48,11 @@ public class Alumno {
 
     //Método para cargar un alumno desde un ResultSet
     public static Alumno cargar(ResultSet resultSet) throws SQLException {
-<<<<<<< HEAD
-
-        int id = resultSet.getInt("id");
-        String nombre = resultSet.getString("nombre");
-        String apellido1 = resultSet.getString("apellido1");
-
-=======
-        
+ 
         int id = resultSet.getInt("id");
         String nombre = resultSet.getString("nombre");
         String apellido1 = resultSet.getString("apellido1");
         
->>>>>>> b92c9b93618b5cdbfcbe4fda800248a072cb8b00
         return new Alumno(id, nombre, apellido1);
     }
 
@@ -198,11 +174,7 @@ class Main {
     private static void mostrarAlumnos(Connection connection, String tabla) throws SQLException {
         
         String sqlSelect = "SELECT * FROM " + tabla;
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> b92c9b93618b5cdbfcbe4fda800248a072cb8b00
         try (Statement statement = connection.createStatement();
              
              ResultSet resultSet = statement.executeQuery(sqlSelect)) {
