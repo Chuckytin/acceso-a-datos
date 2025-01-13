@@ -7,7 +7,7 @@
 
         <!-- Mapeo del campo empId como clave primaria -->
         <id name="empId" column="empId">
-            <generator class="assigned"/>
+            <generator class="assigned"/> <!-- assigned evita que el empId sea auto_increment (identity) -->
         </id>
         <!-- Mapeo del campo empName -->
         <property name="empName" column="empName" />
