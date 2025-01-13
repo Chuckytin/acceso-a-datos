@@ -16,7 +16,7 @@
         <!-- Crea la tabla, si existe la elimina para volverla a crear -->
         <property name="hibernate.hbm2ddl.auto">create</property>
 
-        <mapping resource="Employee.hbm.xml"/>
+        <mapping resource="employee.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

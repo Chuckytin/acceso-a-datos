@@ -9,6 +9,7 @@
         <id name="empId" column="empId">
             <generator class="assigned"/> <!-- assigned evita que el empId sea auto_increment (identity) -->
         </id>
+
         <!-- Mapeo del campo empName -->
         <property name="empName" column="empName" />
 

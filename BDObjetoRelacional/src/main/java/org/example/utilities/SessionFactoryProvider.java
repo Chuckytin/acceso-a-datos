@@ -9,6 +9,7 @@ public class SessionFactoryProvider {
 
         Configuration config = new Configuration();
         config.configure("hibernate.cfg.xml"); //Hibernate lo buscará en src/main/resources
+
         return config.buildSessionFactory();
 
     }
