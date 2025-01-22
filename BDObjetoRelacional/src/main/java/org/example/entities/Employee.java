@@ -1,20 +1,32 @@
 package org.example.entities;
 
+import jakarta.persistence.*;
+
+@Entity //Convierte la clase en una Entidad
+@Table(name = "employees")
 public class Employee {
 
+    @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY) //Generación automática del ID
+    @Column(name = "empId")
     private int empId;
 
+    @Column(name = "empName")
     private String empName;
 
-    //Constructores
+    // Constructores
     public Employee(int empId, String empName) {
         this.empId = empId;
         this.empName = empName;
     }
 
+    public Employee(String empName) {
+        this.empName = empName;
+    }
+
     public Employee() {}
 
-    //GETTERS & SETTERS
+    // GETTERS & SETTERS
     public int getEmpId() {
         return empId;
     }
@@ -30,5 +42,4 @@ public class Employee {
     public void setEmpName(String empName) {
         this.empName = empName;
     }
-
 }

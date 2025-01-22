@@ -13,10 +13,14 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
-        <!-- Crea la tabla, si existe la elimina para volverla a crear -->
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <!-- Mantiene los datos y los actualiza si es necesario -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping resource="employee.hbm.xml"/>
+        <!-- Si utilizo anotaciones de JPA, ya no necesito el archivo de mapeo xml -->
+        <!-- <mapping resource="employee.hbm.xml"/> -->
+
+        <!-- Mapeo de la Entidad Employee -->
+        <mapping class="org.example.entities.Employee"/>
 
     </session-factory>
 </hibernate-configuration>
