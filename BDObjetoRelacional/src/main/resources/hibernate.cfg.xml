@@ -3,15 +3,15 @@
     <session-factory>
 
         <!-- URL de conexión -->
-        <property name="hibernate.connection.url">jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7744626</property>
-        <property name="hibernate.connection.username">sql7744626</property>
-        <property name="hibernate.connection.password">axcWNzMuCb</property>
+        <property name="hibernate.connection.url">jdbc:mysql://omql5.h.filess.io:3307/DBObjetoRelacional_cornermark</property>
+        <property name="hibernate.connection.username">DBObjetoRelacional_cornermark</property>
+        <property name="hibernate.connection.password">0c9a08ea952dd0d934c02036e9884c6c5174e537</property>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <!-- Muestra las consultas SQL ejecutadas -->
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">false</property>
 
         <!-- Mantiene los datos y los actualiza si es necesario -->
         <property name="hibernate.hbm2ddl.auto">update</property>
@@ -21,6 +21,7 @@
 
         <!-- Mapeo de la Entidad Employee -->
         <mapping class="org.example.entities.Employee"/>
+        <mapping class="org.example.entities.Department"/>
 
     </session-factory>
 </hibernate-configuration>

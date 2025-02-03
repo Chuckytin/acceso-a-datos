@@ -20,7 +20,7 @@ public class HibernateConfigReader {
     public static String getConnectionProperty(String propertyName) {
 
         Properties properties = readConnectionProperties();
-        
+
         return properties.getProperty(propertyName);
     }
 
