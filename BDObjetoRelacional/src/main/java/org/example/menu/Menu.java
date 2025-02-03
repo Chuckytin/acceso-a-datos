@@ -1,6 +1,5 @@
 package org.example.menu;
 
-import org.example.conexion.Data;
 import org.example.entities.Department;
 import org.example.entities.Employee;
 import org.example.utilities.SessionFactoryProvider;
@@ -8,9 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.sql.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Menu {
 
@@ -66,14 +66,14 @@ public class Menu {
     }
 
     private static void listEmployees(Session session) {
-        List<Employee> employees = session.createQuery("FROM Employee", Employee.class).list();
+        Set<Employee> employees = new HashSet<>(session.createQuery("FROM Employee", Employee.class).list());
 
         if (employees.isEmpty()) {
             System.out.println("No hay empleados registrados.");
         } else {
             for (Employee emp : employees) {
                 System.out.println("ID: " + emp.getEmpId() + ", Nombre: " + emp.getEmpName() +
-                        ", ID Departamento: " + emp.getDepartment().getDeptId());
+                        ", ID Departamento: " + (emp.getDepartment() != null ? emp.getDepartment().getDeptId() : "Sin departamento"));
             }
         }
 
@@ -85,6 +85,7 @@ public class Menu {
             addEmployee(session);
         }
     }
+
 
     private static void addEmployee(Session session) {
         Scanner entrada = new Scanner(System.in);
