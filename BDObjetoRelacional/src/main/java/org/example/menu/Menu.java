@@ -64,7 +64,7 @@ public class Menu {
             }
         }
     }
-    
+
     private static void listEmployees(Session session) {
         Set<Employee> employees = new HashSet<>(session.createQuery("FROM Employee", Employee.class).list());
 
