@@ -1,7 +1,6 @@
 package org.example.entities.creator;
 
 import org.example.conexion.Data;
-import org.hibernate.annotations.processing.SQL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

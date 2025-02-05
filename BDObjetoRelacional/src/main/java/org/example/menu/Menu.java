@@ -1,16 +1,12 @@
 package org.example.menu;
 
-import org.example.entities.Department;
-import org.example.entities.Employee;
+
 import org.example.utilities.SessionFactoryProvider;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
+
 
 public class Menu {
 
@@ -23,21 +19,77 @@ public class Menu {
             int opcion;
 
             while (!salir) {
-                System.out.println("1 - Ver empleados. \n2 - Ver departamentos. \n3 - Añadir departamento. \n4 - Salir.");
+                System.out.println("""
+                        1 - Crear nuevo Empleado o Departamento.\
+                        
+                        2 - Ver Empleados o Departamentos.\
+                        
+                        3 - Actualizar Empleado o Departamento. \
+                        
+                        4 - Borrar Empleado o Departamento.\
+                        
+                        5 - Salir.""");
                 opcion = entrada.nextInt();
                 entrada.nextLine();
 
                 switch (opcion) {
                     case 1:
-                        listEmployees(session);
+                        boolean salirNuevo = false;
+                        while (!salirNuevo) {
+                            System.out.println("1 - Nuevo Empleado.\n2 - Nuevo Departamento.\n3 - Salir.");
+                            int eleccion = entrada.nextInt();
+                            entrada.nextLine();
+                            switch (eleccion) {
+                                case 1 -> GestorCrud.createEmployee(session);
+                                case 2 -> GestorCrud.createDepartment(session);
+                                case 3 -> salirNuevo = true;
+                                default -> System.out.println("Opción no válida!");
+                            }
+                        }
                         break;
                     case 2:
-                        listDepartments(session);
+                        boolean salirVer = false;
+                        while (!salirVer) {
+                            System.out.println("1 - Ver Empleados.\n2 - Ver Departamentos.\n3 - Salir.");
+                            int eleccion2 = entrada.nextInt();
+                            entrada.nextLine();
+                            switch (eleccion2) {
+                                case 1 -> GestorCrud.readEmployee(session);
+                                case 2 -> GestorCrud.readDepartment(session);
+                                case 3 -> salirVer = true;
+                                default -> System.out.println("Opción no válida!");
+                            }
+                        }
                         break;
                     case 3:
-                        addDepartment(session);
+                        boolean salirActualizar = false;
+                        while (!salirActualizar) {
+                            System.out.println("1 - Actualizar Empleado.\n2 - Actualizar Departamento.\n3 - Salir.");
+                            int eleccion3 = entrada.nextInt();
+                            entrada.nextLine();
+                            switch (eleccion3) {
+                                case 1 -> GestorCrud.updateEmployee(session);
+                                case 2 -> GestorCrud.updateDepartment(session);
+                                case 3 -> salirActualizar = true;
+                                default -> System.out.println("Opción no válida!");
+                            }
+                        }
                         break;
                     case 4:
+                        boolean salirBorrar = false;
+                        while (!salirBorrar) {
+                            System.out.println("1 - Borrar Empleado.\n2 - Borrar Departamento.\n3 - Salir.");
+                            int eleccion4 = entrada.nextInt();
+                            entrada.nextLine();
+                            switch (eleccion4) {
+                                case 1 -> GestorCrud.deleteEmployee(session);
+                                case 2 -> GestorCrud.deleteDepartment(session);
+                                case 3 -> salirBorrar = true;
+                                default -> System.out.println("Opción no válida!");
+                            }
+                        }
+                        break;
+                    case 5:
                         salir = true;
                         System.out.println("Hasta luego...");
                         break;
@@ -46,99 +98,8 @@ public class Menu {
                 }
             }
 
-            entrada.close();
-
         } catch (Exception e) {
             System.err.println("ERROR: " + e.getMessage());
-        }
-    }
-
-    private static void listDepartments(Session session) {
-        Set<Department> departments = new HashSet<>(session.createQuery("FROM Department", Department.class).list());
-
-        if (departments.isEmpty()) {
-            System.out.println("No hay departamentos registrados.");
-        } else {
-            for (Department dept : departments) {
-                System.out.println("ID: " + dept.getDeptId() + ", Nombre: " + dept.getDeptName());
-            }
-        }
-    }
-
-    private static void listEmployees(Session session) {
-        Set<Employee> employees = new HashSet<>(session.createQuery("FROM Employee", Employee.class).list());
-
-        if (employees.isEmpty()) {
-            System.out.println("No hay empleados registrados.");
-        } else {
-            for (Employee emp : employees) {
-                System.out.println("ID: " + emp.getEmpId() + ", Nombre: " + emp.getEmpName() +
-                        ", ID Departamento: " + (emp.getDepartment() != null ? emp.getDepartment().getDeptId() : "Sin departamento"));
-            }
-        }
-
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("¿Deseas añadir un nuevo empleado? (si/no)");
-        String respuesta = entrada.nextLine();
-
-        if (respuesta.equalsIgnoreCase("si")) {
-            addEmployee(session);
-        }
-    }
-
-
-    private static void addEmployee(Session session) {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("Nombre del empleado: ");
-        String nombreEmpleado = entrada.nextLine();
-
-        System.out.println("Asigna el ID del departamento: ");
-        listDepartments(session);
-        int departamentoNum = entrada.nextInt();
-        entrada.nextLine();
-
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            Department department = session.get(Department.class, departamentoNum);
-            if (department == null) {
-                System.err.println("ERROR: El departamento no existe.");
-                transaction.rollback();
-                return;
-            }
-
-            Employee employee = new Employee(nombreEmpleado);
-            employee.setDepartment(department);
-            session.persist(employee);
-            transaction.commit();
-
-            System.out.println("Empleado agregado con éxito.");
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            System.err.println("ERROR al agregar empleado: " + e.getMessage());
-        }
-    }
-
-    private static void addDepartment(Session session) {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("Introduce el nombre del nuevo departamento: ");
-        String nombreDepartamento = entrada.nextLine();
-
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            Department department = new Department(nombreDepartamento);
-            session.persist(department);
-            transaction.commit();
-
-            System.out.println("Departamento agregado con éxito.");
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            System.err.println("ERROR al agregar departamento: " + e.getMessage());
         }
     }
 
