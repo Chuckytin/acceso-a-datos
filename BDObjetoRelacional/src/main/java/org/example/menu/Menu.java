@@ -54,7 +54,7 @@ public class Menu {
     }
 
     private static void listDepartments(Session session) {
-        List<Department> departments = session.createQuery("FROM Department", Department.class).list();
+        Set<Department> departments = new HashSet<>(session.createQuery("FROM Department", Department.class).list());
 
         if (departments.isEmpty()) {
             System.out.println("No hay departamentos registrados.");
