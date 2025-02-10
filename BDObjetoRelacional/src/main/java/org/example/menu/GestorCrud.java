@@ -5,9 +5,7 @@ import org.hibernate.Session;
 import org.example.entities.Department;
 import org.hibernate.Transaction;
 
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class GestorCrud {
 
@@ -76,7 +74,9 @@ public class GestorCrud {
 
     public static void readEmployee(Session session) {
 
-        Set<Employee> employees = new HashSet<>(session.createQuery("FROM Employee", Employee.class).list());
+        // TreeSet para ordenar automáticamente por el ID del empleado
+        Set<Employee> employees = new TreeSet<>(Comparator.comparingInt(Employee::getEmpId));
+        employees.addAll(session.createQuery("FROM Employee", Employee.class).list());
 
         if (employees.isEmpty()) {
             System.out.println("No hay empleados registrados.");
@@ -99,7 +99,9 @@ public class GestorCrud {
 
     public static void readDepartment(Session session) {
 
-        Set<Department> departments = new HashSet<>(session.createQuery("FROM Department", Department.class).list());
+        //TreeSet para ordenar automáticamente por el ID del departamento
+        Set<Department> departments = new TreeSet<>(Comparator.comparingInt(Department::getDeptId));
+        departments.addAll(session.createQuery("FROM Department", Department.class).list());
 
         if (departments.isEmpty()) {
             System.out.println("No hay departamentos registrados.");
