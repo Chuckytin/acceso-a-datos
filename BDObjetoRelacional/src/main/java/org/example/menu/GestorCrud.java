@@ -4,13 +4,16 @@ import org.example.entities.Employee;
 import org.hibernate.Session;
 import org.example.entities.Department;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 public class GestorCrud {
 
-    public static void createDepartment(Session session) {
+    private static final Logger log = LoggerFactory.getLogger(GestorCrud.class);
 
+    public static void createDepartment(Session session) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Introduce el nombre del nuevo departamento: ");
         String nombreDepartamento = scanner.nextLine();
@@ -18,41 +21,45 @@ public class GestorCrud {
         Transaction transaction = null;
 
         try {
-
             transaction = session.beginTransaction();
             Department department = new Department(nombreDepartamento);
             session.persist(department);
             transaction.commit();
             System.out.println("Departamento agregado con éxito.");
-
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("ERROR al agregar departamento: " + e.getMessage());
+            log.error("Error al crear el departamento {}: {}", nombreDepartamento, e.getMessage(), e);
         }
-
     }
 
     public static void createEmployee(Session session) {
-
         Scanner entrada = new Scanner(System.in);
         System.out.println("Nombre del empleado: ");
         String nombreEmpleado = entrada.nextLine();
 
         System.out.println("Asigna el ID del departamento: ");
-        readDepartment(session); //para ver los departamentos
-        int departamentoNum = entrada.nextInt();
-        entrada.nextLine();
+        readDepartment(session); // Para ver los departamentos
+        int departamentoNum = -1;
+
+        // Validar que se ingresa un número entero válido
+        while (departamentoNum == -1) {
+            try {
+                departamentoNum = Integer.parseInt(entrada.nextLine()); // Convertir a entero
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: Por favor, ingresa un número válido para el ID del departamento.");
+                log.warn("El usuario ingresó un valor no numérico para el ID del departamento.");
+            }
+        }
 
         Transaction transaction = null;
 
         try {
-
             transaction = session.beginTransaction();
             Department department = session.get(Department.class, departamentoNum);
             if (department == null) {
-                System.err.println("ERROR: El departamento no existe.");
+                log.warn("Error el departamento {} no existe.", departamentoNum);
                 transaction.rollback();
                 return;
             }
@@ -62,19 +69,15 @@ public class GestorCrud {
             session.persist(employee);
             transaction.commit();
             System.out.println("Empleado agregado con éxito.");
-
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("ERROR al agregar empleado: " + e.getMessage());
+            log.error("Error al crear el empleado {}: {}", nombreEmpleado, e.getMessage(), e);
         }
-
     }
 
     public static void readEmployee(Session session) {
-
-        // TreeSet para ordenar automáticamente por el ID del empleado
         Set<Employee> employees = new TreeSet<>(Comparator.comparingInt(Employee::getEmpId));
         employees.addAll(session.createQuery("FROM Employee", Employee.class).list());
 
@@ -94,12 +97,9 @@ public class GestorCrud {
         if (respuesta.equalsIgnoreCase("si")) {
             createEmployee(session);
         }
-
     }
 
     public static void readDepartment(Session session) {
-
-        //TreeSet para ordenar automáticamente por el ID del departamento
         Set<Department> departments = new TreeSet<>(Comparator.comparingInt(Department::getDeptId));
         departments.addAll(session.createQuery("FROM Department", Department.class).list());
 
@@ -113,17 +113,24 @@ public class GestorCrud {
     }
 
     public static void updateDepartment(Session session) {
-
         Scanner scanner = new Scanner(System.in);
-        readDepartment(session); //visualiza los departments
+        readDepartment(session); // Visualiza los departamentos
         System.out.println("Introduce el ID del departamento a actualizar:");
-        int deptId = scanner.nextInt();
-        scanner.nextLine();
+        int deptId = -1;
+
+        // Validar que se ingresa un número entero válido
+        while (deptId == -1) {
+            try {
+                deptId = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: Por favor, ingresa un número válido para el ID del departamento.");
+                log.warn("El usuario ingresó un valor no numérico para el ID del departamento.");
+            }
+        }
 
         Transaction transaction = null;
 
         try {
-
             transaction = session.beginTransaction();
             Department department = session.get(Department.class, deptId);
             if (department == null) {
@@ -136,17 +143,15 @@ public class GestorCrud {
             session.update(department);
             transaction.commit();
             System.out.println("Departamento actualizado correctamente.");
-
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("Error al actualizar departamento: " + e.getMessage());
+            log.error("Error al actualizar el departamento {}: {}", deptId, e.getMessage(), e);
         }
     }
 
     public static void updateEmployee(Session session) {
-
         Scanner scanner = new Scanner(System.in);
         Set<Employee> employees = new HashSet<>(session.createQuery("FROM Employee", Employee.class).list());
 
@@ -161,13 +166,21 @@ public class GestorCrud {
         }
 
         System.out.println("Introduce el ID del empleado a actualizar:");
-        int empId = scanner.nextInt();
-        scanner.nextLine();
+        int empId = -1;
+
+        // Validar que se ingresa un número entero válido
+        while (empId == -1) {
+            try {
+                empId = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: Por favor, ingresa un número válido para el ID del empleado.");
+                log.warn("El usuario ingresó un valor no numérico para el ID del empleado.");
+            }
+        }
 
         Transaction transaction = null;
 
         try {
-
             transaction = session.beginTransaction();
             Employee employee = session.get(Employee.class, empId);
             if (employee == null) {
@@ -187,8 +200,17 @@ public class GestorCrud {
             if (cambiarDept.equalsIgnoreCase("si")) {
                 readDepartment(session);
                 System.out.print("Introduce el nuevo ID del departamento: ");
-                int newDeptId = scanner.nextInt();
-                scanner.nextLine();
+                int newDeptId = -1;
+
+                // Validar que se ingresa un número entero válido
+                while (newDeptId == -1) {
+                    try {
+                        newDeptId = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("ERROR: Por favor, ingresa un número válido para el nuevo ID del departamento.");
+                        log.warn("El usuario ingresó un valor no numérico para el nuevo ID del departamento.");
+                    }
+                }
 
                 Department newDept = session.get(Department.class, newDeptId);
                 if (newDept == null) {
@@ -202,17 +224,15 @@ public class GestorCrud {
             session.update(employee);
             transaction.commit();
             System.out.println("Empleado actualizado correctamente.");
-
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("Error al actualizar empleado: " + e.getMessage());
+            log.error("Error al actualizar el empleado {}: {}", empId, e.getMessage(), e);
         }
     }
 
     public static void deleteEmployee(Session session) {
-
         Scanner scanner = new Scanner(System.in);
         Set<Employee> employees = new HashSet<>(session.createQuery("FROM Employee", Employee.class).list());
 
@@ -226,13 +246,21 @@ public class GestorCrud {
         }
 
         System.out.println("Introduce el ID del empleado a eliminar:");
-        int empId = scanner.nextInt();
-        scanner.nextLine();
+        int empId = -1;
+
+        // Validar que se ingresa un número entero válido
+        while (empId == -1) {
+            try {
+                empId = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: Por favor, ingresa un número válido para el ID del empleado.");
+                log.warn("El usuario ingresó un valor no numérico para el ID del empleado.");
+            }
+        }
 
         Transaction transaction = null;
 
         try {
-
             transaction = session.beginTransaction();
             Employee employee = session.get(Employee.class, empId);
             if (employee == null) {
@@ -242,27 +270,33 @@ public class GestorCrud {
             session.delete(employee);
             transaction.commit();
             System.out.println("Empleado eliminado correctamente.");
-
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("Error al eliminar empleado: " + e.getMessage());
+            log.error("Error al borrar el empleado con ID {}: {}", empId, e.getMessage(), e);
         }
     }
 
     public static void deleteDepartment(Session session) {
-
         Scanner scanner = new Scanner(System.in);
         readDepartment(session);
         System.out.println("Introduce el ID del departamento a eliminar:");
-        int deptId = scanner.nextInt();
-        scanner.nextLine();
+        int deptId = -1;
+
+        // Validar que se ingresa un número entero válido
+        while (deptId == -1) {
+            try {
+                deptId = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: Por favor, ingresa un número válido para el ID del departamento.");
+                log.warn("El usuario ingresó un valor no numérico para el ID del departamento.");
+            }
+        }
 
         Transaction transaction = null;
 
         try {
-
             transaction = session.beginTransaction();
             Department department = session.get(Department.class, deptId);
             if (department == null) {
@@ -270,7 +304,7 @@ public class GestorCrud {
                 return;
             }
 
-            //Verifica si el departamento tiene empleados
+            // Verifica si el departamento tiene empleados
             Set<Employee> employeesInDept = department.getEmployees();
             if (employeesInDept != null && !employeesInDept.isEmpty()) {
                 System.out.println("No se puede eliminar el departamento. Tiene empleados asignados.");
@@ -281,12 +315,13 @@ public class GestorCrud {
             session.delete(department);
             transaction.commit();
             System.out.println("Departamento eliminado correctamente.");
-
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("Error al eliminar departamento: " + e.getMessage());
+            log.error("Error al borrar el departamento con ID {}: {}", deptId, e.getMessage(), e);
         }
     }
+
+
 }
