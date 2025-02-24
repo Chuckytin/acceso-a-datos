@@ -3,25 +3,31 @@
     <session-factory>
 
         <!-- URL de conexión -->
-        <property name="hibernate.connection.url">jdbc:mysql://omql5.h.filess.io:3307/DBObjetoRelacional_cornermark</property>
-        <property name="hibernate.connection.username">DBObjetoRelacional_cornermark</property>
-        <property name="hibernate.connection.password">0c9a08ea952dd0d934c02036e9884c6c5174e537</property>
+        <property name="hibernate.connection.url">jdbc:mysql://5s0ma.h.filess.io:3307/examenHibernate_neckbring</property>
+        <property name="hibernate.connection.username">examenHibernate_neckbring</property>
+        <property name="hibernate.connection.password">b3e98a7d3c48078cab97bfb311164d1b530bd8bd</property>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <!-- Muestra las consultas SQL ejecutadas -->
+        <!-- Muestra las consultas SQL ejecutadas si está en true -->
         <property name="hibernate.show_sql">false</property>
         <property name="hibernate.format_sql">false</property>
 
         <!-- Mantiene los datos y los actualiza si es necesario -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <!-- Si utilizo anotaciones de JPA, ya no necesito el archivo de mapeo xml -->
-        <!-- <mapping resource="employee.hbm.xml"/> -->
+        <!-- EJERCICIO 1 -->
+        <!-- Configuración de mapeo XML -->
+        <!--
+        <mapping resource="empleado.hbm.xml"/>
+        <mapping resource="familiar.hbm.xml"/>
+        <mapping resource="proyecto.hbm.xml"/>
+        <mapping resource="departamento.hbm.xml"/>
+        -->
 
-        <!-- Mapeo de la Entidad Employee -->
-        <mapping class="org.example.entities.Employee"/>
-        <mapping class="org.example.entities.Department"/>
-
+        <!-- EJERCICIO 2 -->
+        <!-- Mapeo JPA de las Entidades -->
+        <mapping class="org.example.ejercicio2.entities.Alumno"/>
+        <mapping class="org.example.ejercicio2.entities.Empresa"/>
     </session-factory>
 </hibernate-configuration>

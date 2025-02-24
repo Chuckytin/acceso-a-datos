@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.example.ejercicio1.entities.Empleado" table="empleados">
+
+        <id name="empId" column="empId">
+            <generator class="assigned"/>
+        </id>
+
+        <property name="empName" column="empName"/>
+
+        <!-- Relación OnetoMany con Familiar -->
+        <set name="familiares" cascade="all" inverse="true">
+            <key column="empId"/>
+            <one-to-many class="org.example.ejercicio1.entities.Familiar"/>
+        </set>
+
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<hibernate-mapping>
+    <class name="org.example.ejercicio1.entities.Departamento" table="departamentos">
+        <!-- Mapping the primary key (depId) -->
+        <id name="depId" column="id">
+            <generator class="identity"/>
+        </id>
+
+        <!-- Mapping the depName property -->
+        <property name="depName" column="nombre"/>
+
+        <!-- OneToMany mapping with Empleado -->
+        <set name="empleados" table="empleado_departamento">
+            <key column="depId"/>
+            <one-to-many class="org.example.ejercicio1.entities.Empleado"/>
+        </set>
+    </class>
+</hibernate-mapping>

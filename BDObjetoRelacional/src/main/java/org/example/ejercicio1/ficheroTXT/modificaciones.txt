@@ -1,0 +1,36 @@
+Añadir:
+    En la clase Empleado se ha tenido que añadir la siguiente anotación:
+        @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+            private List<Familiar> familiares;
+    Además se han añadido el getter y el setter de la nueva List llamada familiares.
+    Se ha inicializado dentro del constructor.
+
+
+    En la clase Familiar se ha añadido la relación con Empleado:
+    @ManyToOne
+        @JoinColumn(name = "empleado_id", nullable = false)
+        private Empleado empleado;
+
+
+    En la carpeta resources:
+        Se ha tenido que añadir familiar.hbm.xml a las anteriores existentes de empleado, departamento y proyecto.
+        El archivo xml quedaría de la siguiente manera al tener una relación con Empleado:
+            <?xml version="1.0" encoding="UTF-8"?>
+            <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate Mapping DTD 3.0//EN"
+                    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+            <hibernate-mapping>
+                <class name="org.example.entities.Familiar" table="familiares">
+
+                    <id name="id" column="id">
+                        <generator class="identity"/>
+                    </id>
+
+                    <property name="nombre" column="nombre"/>
+                    <property name="parentesco" column="parentesco"/>
+
+                    <!-- Relación Many-to-One con Empleado -->
+                    <many-to-one name="empleado" column="empId" not-null="true"/>
+
+                </class>
+            </hibernate-mapping>

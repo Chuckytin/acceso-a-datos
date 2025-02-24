@@ -1,0 +1,17 @@
+<hibernate-mapping>
+    <class name="org.example.ejercicio1.entities.Proyecto" table="proyectos">
+
+        <id name="proId" column="proyectoId">
+            <generator class="assigned"/>
+        </id>
+
+        <property name="proName" column="nombre"/>
+
+        <!-- Relación Many-to-Many con Empleado -->
+        <set name="empleados" table="empleado_proyecto">
+            <key column="proyectoId"/>
+            <many-to-many class="org.example.ejercicio1.entities.Empleado" column="empId"/>
+        </set>
+
+    </class>
+</hibernate-mapping>
