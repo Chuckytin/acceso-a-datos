@@ -1,35 +1,51 @@
 package com.veterinaria;
 
-import com.veterinaria.db.MascotaDAO;
-import com.veterinaria.db.MongoDBConnection;
+import com.veterinaria.dao.MascotaDAO;
+import com.veterinaria.dao.PropietarioDAO;
+import com.veterinaria.dao.PropietarioMascotaDAO;
+import com.veterinaria.connection.MongoDBConnection;
 import com.veterinaria.model.Mascota;
 import com.veterinaria.model.Propietario;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
 import java.util.Date;
 
 public class Main {
+
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
-        // Crear una mascota y un propietario
+
+        // Crea un propietario
         Propietario propietario = new Propietario();
-        propietario.setId(Long.valueOf("1"));
-        propietario.setNombre("Emilio");
-        propietario.setApellidos("Delgado");
-        propietario.setTelefono("985658785");
-        propietario.setEmail("em.ado@outlook.com");
+        propietario.setNombre("Javi");
+        propietario.setApellidos("Jabo");
+        propietario.setTelefono("600250350");
+        propietario.setEmail("javibo@gmail.com");
 
+        // Inserta el propietario en la colección "propietario"
+        PropietarioDAO propietarioDAO = new PropietarioDAO();
+        String propietarioId = propietarioDAO.insertPropietario(propietario);
+        propietario.setId(propietarioId); // Asignar el ID generado
+        logger.info("Propietario insertado con éxito. ID: {}", propietarioId);
+
+        // Crea una mascota con su propietario embebido
         Mascota mascota = new Mascota();
-        mascota.setNombre("Meneillos");
-        mascota.setRaza("Común Europeo");
-        mascota.setEdad(6);
-        mascota.setPropietario(propietario);
+        mascota.setNombre("Rex");
+        mascota.setRaza("Pastor Alemán");
+        mascota.setEdad(4);
         mascota.setUltimaVisita(new Date());
+        mascota.setPropietario(propietario); // Asignar el propietario
 
-        // Insertar la mascota en la base de datos
+        // Inserta la mascota en la colección "mascota"
         MascotaDAO mascotaDAO = new MascotaDAO();
         String mascotaId = mascotaDAO.insertMascota(mascota);
-        System.out.println("Mascota insertada con ID: " + mascotaId);
+        logger.info("Mascota insertada con éxito. ID: {}", mascotaId);
 
-        // Cerrar la conexión
+        // Cierra la conexión
         MongoDBConnection.closeConnection();
     }
 }
